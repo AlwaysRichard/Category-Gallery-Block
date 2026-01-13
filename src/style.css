@@ -1,0 +1,256 @@
+/* AP Category Gallery Block - Frontend Styles */
+
+/* Base */
+.cat-gallery {
+    line-height: 0;
+}
+
+.cat-gallery__item {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    margin: 0;
+}
+
+.cat-gallery figure {
+    margin: 0;
+}
+
+.cat-gallery__link {
+    display: block;
+    text-decoration: none;
+}
+
+.cat-gallery__img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 0;
+}
+
+.cat-focus-outline:focus {
+    outline: 2px solid #2271b1;
+    outline-offset: 2px;
+}
+
+/* GRID (uniform tiles) */
+.cat-gallery--grid {
+    display: grid;
+    grid-template-columns: var(--cat-grid-cols, repeat(3, 1fr));
+    gap: var(--cat-gap, 8px);
+}
+
+/* MASONRY (waterfall) */
+.cat-gallery--masonry {
+    column-count: var(--cat-columns, 3);
+    column-gap: var(--cat-gap, 12px);
+}
+
+.cat-gallery--masonry .cat-gallery__item {
+    break-inside: avoid;
+    margin-bottom: var(--cat-gap, 12px);
+}
+
+/* TILED (Justified rows; JS sets per-row widths/heights) */
+.cat-gallery--tiled {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: var(--cat-gap, 8px);
+    row-gap: var(--cat-vgap, var(--cat-gap, 8px));
+}
+
+.cat-gallery--tiled .cat-gallery__item {
+    flex: 0 0 auto;
+}
+
+/* COLLAGE (Metro grid) */
+.cat-gallery--collage {
+    display: grid;
+    grid-auto-flow: dense;
+    grid-auto-rows: var(--cat-row, 12px);
+    grid-template-columns: repeat(var(--cat-cols, 6), 1fr);
+    gap: var(--cat-gap, 8px);
+}
+
+.cat-gallery--collage .cat-gallery__item {
+    position: relative;
+}
+
+.cat-gallery--collage .cat-gallery__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.cat--nocrop.cat-gallery--collage {
+    grid-auto-rows: auto;
+}
+
+.cat--nocrop.cat-gallery--collage .cat-gallery__img {
+    position: static;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    background: var(--cat-bg, transparent);
+}
+
+/* Optional click menu */
+.cat-gallery__menu-trigger {
+    position: relative;
+    display: block;
+    cursor: pointer;
+}
+
+.cat-gallery__menu-trigger:hover {
+    opacity: 0.9;
+}
+
+.cat-gallery__menu {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    min-width: 160px;
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+    border-radius: 10px;
+    padding: 8px 12px;
+    display: none;
+    z-index: 4;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.cat-gallery__menu.is-open {
+    display: block;
+}
+
+.cat-gallery__menu-label {
+    display: inline;
+    color: #666;
+    font-weight: 500;
+    margin-right: 8px;
+}
+
+.cat-gallery__menu a {
+    display: inline;
+    padding: 0;
+    color: #2271b1;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.cat-gallery__menu a:hover {
+    text-decoration: underline;
+}
+
+.cat-gallery__menu button {
+    display: inline;
+    padding: 0;
+    color: #2271b1;
+    background: none;
+    border: none;
+    font: inherit;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.cat-gallery__menu button:hover {
+    text-decoration: underline;
+}
+
+.cat-gallery__menu-sep {
+    display: inline;
+    color: #999;
+    margin: 0 6px;
+}
+
+/* Lightbox for full-image viewing */
+.cat-lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.92);
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.cat-lightbox.is-open {
+    display: flex;
+}
+
+.cat-lightbox__img {
+    max-width: 90vw;
+    max-height: 80vh;
+    object-fit: contain;
+}
+
+.cat-lightbox__caption {
+    color: #fff;
+    text-align: center;
+    margin-top: 15px;
+    font-size: 16px;
+    max-width: 90vw;
+    padding: 0 20px;
+    line-height: 1.5;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.cat-lightbox__close {
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: #fff;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 24px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.cat-lightbox__close:hover {
+    background: #f0f0f0;
+}
+
+.cat-lightbox__nav {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.cat-lightbox__nav button {
+    width: 50px;
+    height: 50px;
+    border: none;
+    background: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.cat-lightbox__nav button:hover {
+    background: #f0f0f0;
+}
+
+.cat-lightbox__nav button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
