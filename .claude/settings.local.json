@@ -3,7 +3,8 @@
     "allow": [
       "Bash(chmod:*)",
       "Bash(ls:*)",
-      "Bash(git mv:*)"
+      "Bash(git mv:*)",
+      "Bash(git reset:*)"
     ]
   }
 }
