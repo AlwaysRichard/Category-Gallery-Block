@@ -1,0 +1,79 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "gk/category-gallery",
+  "version": "1.3.0",
+  "title": "Category Gallery",
+  "category": "media",
+  "icon": "format-gallery",
+  "description": "Display all images from posts in selected gallery taxonomies or categories",
+  "keywords": ["gallery", "images", "category", "taxonomy", "photos"],
+  "textdomain": "category-gallery-block",
+  "supports": {
+    "html": false,
+    "align": ["wide", "full"]
+  },
+  "attributes": {
+    "sourceType": {
+      "type": "string",
+      "default": "gallery",
+      "enum": ["gallery", "category"]
+    },
+    "galleries": {
+      "type": "array",
+      "default": []
+    },
+    "categories": {
+      "type": "array",
+      "default": []
+    },
+    "includeUnpublished": {
+      "type": "boolean",
+      "default": false
+    },
+    "layout": {
+      "type": "string",
+      "default": "tiled",
+      "enum": ["tiled", "grid", "masonry", "collage"]
+    },
+    "columns": {
+      "type": "number",
+      "default": 3
+    },
+    "gutter": {
+      "type": "number",
+      "default": 8
+    },
+    "targetHeight": {
+      "type": "number",
+      "default": 250
+    },
+    "maxImages": {
+      "type": "number",
+      "default": 0
+    },
+    "linkToImage": {
+      "type": "boolean",
+      "default": true
+    },
+    "linkToPost": {
+      "type": "boolean",
+      "default": false
+    },
+    "crop": {
+      "type": "boolean",
+      "default": true
+    },
+    "size": {
+      "type": "string",
+      "default": "large",
+      "enum": ["thumbnail", "medium", "medium_large", "large", "full"]
+    },
+    "exifTemplate": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "editorScript": "file:../../build/gk_category_gallery/index.js",
+  "render": "file:./index.php"
+}
