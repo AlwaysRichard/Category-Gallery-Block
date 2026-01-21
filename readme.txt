@@ -23,7 +23,7 @@ Key features include:
 
 == Installation ==
 
-1. Upload the `category-gallery-block` folder to the `/wp-content/plugins/` directory.
+1. Upload the `gallery-block` folder to the `/wp-content/plugins/` directory.
 2. Activate the plugin through the 'Plugins' menu in WordPress.
 3. In the Block Editor, search for "Gallery" to add the block to your posts or pages.
 

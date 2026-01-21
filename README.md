@@ -259,7 +259,7 @@ This means:
 ## Version History
 
 ### 1.3.0
-- **Refactored:** Renamed to `category-gallery-block` (removed `ap_` prefix)
+- **Refactored:** Renamed to `gallery-block` (removed `ap_` prefix)
 - **2025 Best Practices:** Moved to separate frontend asset files with automatic cache busting
 - **Category Source:** Added category mode to display featured images
 - **Auto-Detection:** Enhanced to detect category archive pages

@@ -13,7 +13,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-class Category_Gallery_Block {
+class Gallery_Block {
     public function __construct() {
         add_action( 'init', [ $this, 'register_block' ] );
     }
@@ -402,4 +402,4 @@ class Category_Gallery_Block {
     }
 }
 
-new Category_Gallery_Block();
+new Gallery_Block();
