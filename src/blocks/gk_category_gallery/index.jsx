@@ -12,7 +12,7 @@ import {
 import { useSelect } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 
-registerBlockType('gk/category-gallery', {
+registerBlockType('category-gallery', {
     edit: ({ attributes, setAttributes }) => {
         const blockProps = useBlockProps();
 

@@ -101,7 +101,7 @@ get_header();
 
     <?php
     // The Category Gallery block will auto-detect and show this gallery
-    echo do_blocks( '<!-- wp:category-gallery/block {"layout":"tiled","columns":3,"gutter":12,"linkToImage":true} /-->' );
+    echo do_blocks( '<!-- wp:category-gallery {"layout":"tiled","columns":3,"gutter":12,"linkToImage":true} /-->' );
     ?>
 </main>
 
@@ -134,7 +134,7 @@ get_header();
 
     <?php
     // The Category Gallery block will auto-detect and show this category's featured images
-    echo do_blocks( '<!-- wp:category-gallery/block {"sourceType":"category","layout":"grid","columns":4,"gutter":16,"linkToPost":true} /-->' );
+    echo do_blocks( '<!-- wp:category-gallery {"sourceType":"category","layout":"grid","columns":4,"gutter":16,"linkToPost":true} /-->' );
     ?>
 </main>
 

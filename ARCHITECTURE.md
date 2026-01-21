@@ -141,7 +141,7 @@ The block follows the scaffolding pattern from `create-wp-block.sh`:
 3. **Editor component:** `src/blocks/gk_category_gallery/index.jsx`
    - React component for block editor
    - Uses `@wordpress/components` for UI
-   - Registers with `gk/category-gallery` name
+   - Registers with `category-gallery` name
 
 ## Build System
 
@@ -298,8 +298,8 @@ build/gk_category_gallery/   (compiled files)
 
 ### Breaking Changes
 
-1. **Block name changed:** `category-gallery/block` → `gk/category-gallery`
-2. **Plugin file renamed:** `category-gallery-block.php` → `category-gallery-block-v2.php`
+1. **Block name changed:** `category-gallery/block` → `category-gallery`
+2. **Plugin file refactored:** `category-gallery-block.php` completely rewritten with clean architecture
 3. **Build system changed:** Now uses webpack auto-discovery
 4. **Directory structure changed:** Follows scaffolding pattern
 
