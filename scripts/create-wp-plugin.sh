@@ -63,6 +63,8 @@ step "Create plugin directory structure"
 mkdir -p "$PLUGIN_DIR"
 mkdir -p "$PLUGIN_DIR/blocks"
 mkdir -p "$PLUGIN_DIR/build"
+mkdir -p "$PLUGIN_DIR/src"
+mkdir -p "$PLUGIN_DIR/src/blocks"
 mkdir -p "$PLUGIN_DIR/includes"
 mkdir -p "$PLUGIN_DIR/assets"
 
@@ -87,39 +89,208 @@ cat <<'EOF' > "$PLUGIN_DIR/$PLUGIN_SLUG.php"
  * Description: __PLUGIN_DESCRIPTION__
  * Author: __PLUGIN_AUTHOR__
  * Version: 1.0.0
+ * Text Domain: __PLUGIN_SLUG__
+ * Requires at least: 6.0
+ * Requires PHP: 7.4
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-/**
- * Automatically register all blocks that have a block.json file.
- * This keeps your PHP in sync with your creation scripts.
- */
-function gkd_register_dynamic_blocks() {
-    // Path to your blocks directory
-    $blocks_dir = plugin_dir_path( __FILE__ );
-
-    // Use a glob to find every block.json inside your gk_ folders
-    __BLOCK_DISCOVERY_PHP__
-
-    foreach ( $block_json_files as $file ) {
-        // Register the block using the metadata file
-        // register_block_type automatically handles scripts, styles, and render callbacks
-        register_block_type( dirname( $file ) );
-    }
-}
-
-add_action( 'init', 'gkd_register_dynamic_blocks' );
+// Load the clean three-layer architecture
+require_once __DIR__ . '/Scaffolding.php';
 EOF
 
 sed -i "s|__PLUGIN_NAME__|$PLUGIN_NAME|" "$PLUGIN_DIR/$PLUGIN_SLUG.php"
 sed -i "s|__PLUGIN_DESCRIPTION__|$PLUGIN_DESCRIPTION|" "$PLUGIN_DIR/$PLUGIN_SLUG.php"
 sed -i "s|__PLUGIN_AUTHOR__|$WP_USER|" "$PLUGIN_DIR/$PLUGIN_SLUG.php"
-sed -i "s|__BLOCK_DISCOVERY_PHP__|$BLOCK_DISCOVERY_PHP|" "$PLUGIN_DIR/$PLUGIN_SLUG.php"
+sed -i "s|__PLUGIN_SLUG__|$PLUGIN_SLUG|" "$PLUGIN_DIR/$PLUGIN_SLUG.php"
 
 step "Created plugin bootstrap file"
+
+# ----------------------------------------------------------------------------
+step "Create Scaffolding.php (Layer 3: WordPress Integration)"
+# ----------------------------------------------------------------------------
+
+cat <<'EOF' > "$PLUGIN_DIR/Scaffolding.php"
+<?php
+/**
+ * Plugin Scaffolding - WordPress integration layer
+ *
+ * Responsibilities (ONLY):
+ * - Register blocks
+ * - Enqueue frontend assets (CSS/JS)
+ * - Wire up render callbacks
+ *
+ * No business logic. No HTML generation. Just scaffolding.
+ */
+
+if ( ! defined( 'ABSPATH' ) ) { exit; }
+
+// Load engine and renderer (if they exist)
+$engine_file = __DIR__ . '/src/Engine.php';
+$renderer_file = __DIR__ . '/src/BlockRenderer.php';
+
+if ( file_exists( $engine_file ) ) {
+    require_once $engine_file;
+}
+
+if ( file_exists( $renderer_file ) ) {
+    require_once $renderer_file;
+}
+
+class __PLUGIN_CLASS__ {
+
+    const HANDLE = '__PLUGIN_SLUG__';
+
+    private $renderer;
+
+    public function __construct() {
+        // Initialize engine and renderer (if they exist)
+        if ( class_exists( '__PLUGIN_CLASS___Engine' ) && class_exists( '__PLUGIN_CLASS___Block_Renderer' ) ) {
+            $engine = new __PLUGIN_CLASS___Engine();
+            $this->renderer = new __PLUGIN_CLASS___Block_Renderer( $engine );
+        }
+
+        // Hook into WordPress
+        add_action( 'init', [ $this, 'register_blocks' ] );
+    }
+
+    /**
+     * Automatically register all blocks that have a block.json file
+     */
+    public function register_blocks() {
+        $blocks_dir = plugin_dir_path( __FILE__ ) . 'blocks/';
+
+        // Find all block.json files
+        __BLOCK_DISCOVERY_PHP__
+
+        foreach ( $block_json_files as $file ) {
+            $block_dir = dirname( $file );
+
+            // Check if block has custom render callback
+            $render_file = $block_dir . '/index.php';
+
+            if ( file_exists( $render_file ) ) {
+                // Block has custom PHP rendering
+                register_block_type( $block_dir );
+            } else {
+                // Block uses default renderer (if available)
+                $args = [];
+                if ( $this->renderer ) {
+                    $args['render_callback'] = [ $this->renderer, 'render' ];
+                }
+                register_block_type( $block_dir, $args );
+            }
+        }
+    }
+}
+
+new __PLUGIN_CLASS__();
+EOF
+
+# Convert plugin slug to class name (replace hyphens with underscores, capitalize words)
+PLUGIN_CLASS=$(echo "$PLUGIN_SLUG" | sed 's/-/_/g' | awk '{for(i=1;i<=NF;i++){$i=toupper(substr($i,1,1)) substr($i,2)}}1' FS='_' OFS='_')
+
+sed -i "s|__PLUGIN_CLASS__|$PLUGIN_CLASS|g" "$PLUGIN_DIR/Scaffolding.php"
+sed -i "s|__PLUGIN_SLUG__|$PLUGIN_SLUG|" "$PLUGIN_DIR/Scaffolding.php"
+sed -i "s|__BLOCK_DISCOVERY_PHP__|$BLOCK_DISCOVERY_PHP|" "$PLUGIN_DIR/Scaffolding.php"
+
+step "Created Scaffolding.php"
+
+# ----------------------------------------------------------------------------
+step "Create template files for Engine.php and BlockRenderer.php"
+# ----------------------------------------------------------------------------
+
+cat <<'EOF' > "$PLUGIN_DIR/src/Engine.php"
+<?php
+/**
+ * Engine - Pure business logic
+ *
+ * Framework-agnostic class that handles:
+ * - Data queries
+ * - Business logic
+ * - HTML generation
+ *
+ * No WordPress hooks, no block registration, no asset enqueueing.
+ * Just pure logic that can be reused anywhere.
+ */
+
+if ( ! defined( 'ABSPATH' ) ) { exit; }
+
+class __PLUGIN_CLASS___Engine {
+
+    /**
+     * Example method - replace with your actual business logic
+     */
+    public function get_data( $params ) {
+        // Your data retrieval logic here
+        return [];
+    }
+
+    /**
+     * Example method - replace with your HTML generation logic
+     */
+    public function build_html( $data, $opts ) {
+        // Your HTML generation logic here
+        return '<div>Replace with your HTML</div>';
+    }
+}
+EOF
+
+sed -i "s|__PLUGIN_CLASS__|$PLUGIN_CLASS|g" "$PLUGIN_DIR/src/Engine.php"
+
+cat <<'EOF' > "$PLUGIN_DIR/src/BlockRenderer.php"
+<?php
+/**
+ * Block Renderer - Thin wrapper around Engine
+ *
+ * Responsibilities:
+ * - Receive block attributes
+ * - Normalize parameters
+ * - Call the engine
+ * - Return HTML
+ *
+ * This is a pure adapter - no WordPress hooks, no asset management.
+ */
+
+if ( ! defined( 'ABSPATH' ) ) { exit; }
+
+class __PLUGIN_CLASS___Block_Renderer {
+
+    private $engine;
+
+    public function __construct( __PLUGIN_CLASS___Engine $engine ) {
+        $this->engine = $engine;
+    }
+
+    /**
+     * Render the block
+     */
+    public function render( $attributes ) {
+        // Extract and normalize attributes
+        $param1 = $attributes['param1'] ?? 'default_value';
+
+        // Get data via engine
+        $data = $this->engine->get_data( [ 'param1' => $param1 ] );
+
+        if ( empty( $data ) ) {
+            return '<p>' . esc_html__( 'No data found.', '__PLUGIN_SLUG__' ) . '</p>';
+        }
+
+        // Build HTML via engine
+        return $this->engine->build_html( $data, [
+            'param1' => $param1,
+        ]);
+    }
+}
+EOF
+
+sed -i "s|__PLUGIN_CLASS__|$PLUGIN_CLASS|g" "$PLUGIN_DIR/src/BlockRenderer.php"
+sed -i "s|__PLUGIN_SLUG__|$PLUGIN_SLUG|" "$PLUGIN_DIR/src/BlockRenderer.php"
+
+step "Created template files for Engine.php and BlockRenderer.php"
 
 # ----------------------------------------------------------------------------
 step "Create diagnostic script (mirrors plugin logic exactly)"

@@ -136,29 +136,50 @@ cat > "$BLOCK_DIR/block.json" <<EOF
 EOF
 
 # ----------------------------------------
-# index.php (The Controller) - Replacement
+# index.php (Optional: Custom Render Logic)
+# ----------------------------------------
+# Note: Blocks can use the shared BlockRenderer.php from the three-layer
+# architecture by NOT including index.php. If you need custom rendering
+# for this specific block, create index.php. Otherwise, delete it.
 # ----------------------------------------
 cat > "$BLOCK_DIR/index.php" <<EOF
 <?php
 /**
- * Dynamic Render Logic
+ * Optional Custom Render Logic for this Block
+ *
+ * If this file exists, it overrides the shared BlockRenderer.php.
+ * Delete this file to use the shared renderer instead.
+ *
  * Variables available: \$attributes, \$content, \$block
  */
 defined( 'ABSPATH' ) || exit;
 
-// We include the template file for HTML output
+// Option 1: Include a template file for HTML output
 include __DIR__ . '/template.php';
+
+// Option 2: Use the shared renderer (uncomment below, delete template.php)
+// global \$plugin_renderer; // Set in Scaffolding.php
+// if ( \$plugin_renderer ) {
+//     return \$plugin_renderer->render( \$attributes );
+// }
 EOF
 
 # ----------------------------------------
-# template.php (The View) - Replacement
+# template.php (The View)
 # ----------------------------------------
 cat > "$BLOCK_DIR/template.php" <<EOF
 <?php
+/**
+ * Block Template - HTML Output
+ *
+ * This file is only needed if you're using custom rendering (index.php).
+ * If using the shared BlockRenderer.php, delete this file.
+ */
 defined( 'ABSPATH' ) || exit;
 ?>
 <div class="wp-block-$BLOCK_NAMESPACE_PREFIX-$BLOCK_SLUG">
     <p><strong>$BLOCK_TITLE:</strong> View output.</p>
+    <p><em>Tip: Delete index.php and template.php to use the shared renderer.</em></p>
 </div>
 EOF
 
