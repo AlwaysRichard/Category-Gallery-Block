@@ -12,7 +12,7 @@ import {
 import { useSelect } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 
-registerBlockType('category-gallery/block', {
+registerBlockType('gallery/block', {
     edit: ({ attributes, setAttributes }) => {
         const blockProps = useBlockProps();
 
@@ -118,66 +118,66 @@ registerBlockType('category-gallery/block', {
         return (
             <>
                 <InspectorControls>
-                    <PanelBody title={__('Source Selection', 'category-gallery-block')} initialOpen={true}>
+                    <PanelBody title={__('Source Selection', 'gallery-block')} initialOpen={true}>
                         <RadioControl
-                            label={__('Image Source', 'category-gallery-block')}
+                            label={__('Image Source', 'gallery-block')}
                             selected={sourceType}
                             options={[
-                                { label: __('Gallery Taxonomy', 'category-gallery-block'), value: 'gallery' },
-                                { label: __('Category', 'category-gallery-block'), value: 'category' }
+                                { label: __('Gallery Taxonomy', 'gallery-block'), value: 'gallery' },
+                                { label: __('Category', 'gallery-block'), value: 'category' }
                             ]}
                             onChange={onSourceTypeChange}
                             help={sourceType === 'gallery' ? 
-                                __('Show images from posts in selected galleries', 'category-gallery-block') : 
-                                __('Show featured images from posts in selected category', 'category-gallery-block')
+                                __('Show images from posts in selected galleries', 'gallery-block') : 
+                                __('Show featured images from posts in selected category', 'gallery-block')
                             }
                         />
 
                         {sourceType === 'gallery' ? (
                             <FormTokenField
-                                label={__('Select Galleries', 'category-gallery-block')}
+                                label={__('Select Galleries', 'gallery-block')}
                                 value={selectedGalleryNames}
                                 suggestions={gallerySuggestions}
                                 onChange={onGalleriesChange}
-                                placeholder={isLoadingGalleries ? __('Loading galleries...', 'category-gallery-block') : __('Type to search galleries', 'category-gallery-block')}
-                                help={__('Select one or more galleries to display images from', 'category-gallery-block')}
+                                placeholder={isLoadingGalleries ? __('Loading galleries...', 'gallery-block') : __('Type to search galleries', 'gallery-block')}
+                                help={__('Select one or more galleries to display images from', 'gallery-block')}
                             />
                         ) : (
                             <FormTokenField
-                                label={__('Select Category', 'category-gallery-block')}
+                                label={__('Select Category', 'gallery-block')}
                                 value={selectedCategoryNames}
                                 suggestions={categorySuggestions}
                                 onChange={onCategoriesChange}
-                                placeholder={isLoadingCategories ? __('Loading categories...', 'category-gallery-block') : __('Type to search categories', 'category-gallery-block')}
-                                help={__('Select ONE category to display featured images from', 'category-gallery-block')}
+                                placeholder={isLoadingCategories ? __('Loading categories...', 'gallery-block') : __('Type to search categories', 'gallery-block')}
+                                help={__('Select ONE category to display featured images from', 'gallery-block')}
                                 maxLength={1}
                             />
                         )}
 
                         <ToggleControl
-                            label={__('Include Unpublished Pages', 'category-gallery-block')}
+                            label={__('Include Unpublished Pages', 'gallery-block')}
                             checked={includeUnpublished}
                             onChange={(value) => setAttributes({ includeUnpublished: value })}
-                            help={__('Include featured images from draft, pending, and private posts/pages', 'category-gallery-block')}
+                            help={__('Include featured images from draft, pending, and private posts/pages', 'gallery-block')}
                         />
                     </PanelBody>
 
-                    <PanelBody title={__('Layout Settings', 'category-gallery-block')} initialOpen={true}>
+                    <PanelBody title={__('Layout Settings', 'gallery-block')} initialOpen={true}>
                         <SelectControl
-                            label={__('Layout', 'category-gallery-block')}
+                            label={__('Layout', 'gallery-block')}
                             value={layout}
                             options={[
-                                { label: __('Tiled (Justified Rows)', 'category-gallery-block'), value: 'tiled' },
-                                { label: __('Grid (Uniform)', 'category-gallery-block'), value: 'grid' },
-                                { label: __('Masonry (Waterfall)', 'category-gallery-block'), value: 'masonry' },
-                                { label: __('Collage (Metro)', 'category-gallery-block'), value: 'collage' }
+                                { label: __('Tiled (Justified Rows)', 'gallery-block'), value: 'tiled' },
+                                { label: __('Grid (Uniform)', 'gallery-block'), value: 'grid' },
+                                { label: __('Masonry (Waterfall)', 'gallery-block'), value: 'masonry' },
+                                { label: __('Collage (Metro)', 'gallery-block'), value: 'collage' }
                             ]}
                             onChange={(value) => setAttributes({ layout: value })}
                         />
 
                         {(layout === 'grid' || layout === 'masonry' || layout === 'collage') && (
                             <RangeControl
-                                label={__('Columns', 'category-gallery-block')}
+                                label={__('Columns', 'gallery-block')}
                                 value={columns}
                                 onChange={(value) => setAttributes({ columns: value })}
                                 min={1}
@@ -186,7 +186,7 @@ registerBlockType('category-gallery/block', {
                         )}
 
                         <RangeControl
-                            label={__('Gutter (px)', 'category-gallery-block')}
+                            label={__('Gutter (px)', 'gallery-block')}
                             value={gutter}
                             onChange={(value) => setAttributes({ gutter: value })}
                             min={0}
@@ -195,7 +195,7 @@ registerBlockType('category-gallery/block', {
 
                         {layout === 'tiled' && (
                             <RangeControl
-                                label={__('Target Row Height (px)', 'category-gallery-block')}
+                                label={__('Target Row Height (px)', 'gallery-block')}
                                 value={targetHeight}
                                 onChange={(value) => setAttributes({ targetHeight: value })}
                                 min={100}
@@ -205,80 +205,80 @@ registerBlockType('category-gallery/block', {
 
                         {layout === 'collage' && (
                             <ToggleControl
-                                label={__('Crop Images', 'category-gallery-block')}
+                                label={__('Crop Images', 'gallery-block')}
                                 checked={crop}
                                 onChange={(value) => setAttributes({ crop: value })}
                             />
                         )}
                     </PanelBody>
 
-                    <PanelBody title={__('Image Settings', 'category-gallery-block')} initialOpen={false}>
+                    <PanelBody title={__('Image Settings', 'gallery-block')} initialOpen={false}>
                         <SelectControl
-                            label={__('Image Size', 'category-gallery-block')}
+                            label={__('Image Size', 'gallery-block')}
                             value={size}
                             options={[
-                                { label: __('Thumbnail', 'category-gallery-block'), value: 'thumbnail' },
-                                { label: __('Medium', 'category-gallery-block'), value: 'medium' },
-                                { label: __('Medium Large', 'category-gallery-block'), value: 'medium_large' },
-                                { label: __('Large', 'category-gallery-block'), value: 'large' },
-                                { label: __('Full Size', 'category-gallery-block'), value: 'full' }
+                                { label: __('Thumbnail', 'gallery-block'), value: 'thumbnail' },
+                                { label: __('Medium', 'gallery-block'), value: 'medium' },
+                                { label: __('Medium Large', 'gallery-block'), value: 'medium_large' },
+                                { label: __('Large', 'gallery-block'), value: 'large' },
+                                { label: __('Full Size', 'gallery-block'), value: 'full' }
                             ]}
                             onChange={(value) => setAttributes({ size: value })}
                         />
 
                         <RangeControl
-                            label={__('Maximum Images', 'category-gallery-block')}
+                            label={__('Maximum Images', 'gallery-block')}
                             value={maxImages}
                             onChange={(value) => setAttributes({ maxImages: value })}
                             min={0}
                             max={100}
                             help={maxImages === 0 ? 
-                                __('0 = Show all images', 'category-gallery-block') : 
-                                __('Limit number of images displayed', 'category-gallery-block')
+                                __('0 = Show all images', 'gallery-block') : 
+                                __('Limit number of images displayed', 'gallery-block')
                             }
                         />
                     </PanelBody>
 
-                    <PanelBody title={__('Features', 'category-gallery-block')} initialOpen={false}>
+                    <PanelBody title={__('Features', 'gallery-block')} initialOpen={false}>
                         <ToggleControl
-                            label={__('Link to Image', 'category-gallery-block')}
+                            label={__('Link to Image', 'gallery-block')}
                             checked={linkToImage}
                             onChange={(value) => setAttributes({ linkToImage: value })}
-                            help={__('Show "Image" link in click menu to view full-size image', 'category-gallery-block')}
+                            help={__('Show "Image" link in click menu to view full-size image', 'gallery-block')}
                         />
                         <ToggleControl
-                            label={__('Link to Post', 'category-gallery-block')}
+                            label={__('Link to Post', 'gallery-block')}
                             checked={linkToPost}
                             onChange={(value) => setAttributes({ linkToPost: value })}
-                            help={__('Show "Post" link in click menu to view the post', 'category-gallery-block')}
+                            help={__('Show "Post" link in click menu to view the post', 'gallery-block')}
                         />
                         {!linkToImage && !linkToPost && (
                             <p style={{ fontSize: '12px', color: '#d63638', marginTop: '8px' }}>
-                                {__('⚠️ At least one link option should be enabled', 'category-gallery-block')}
+                                {__('⚠️ At least one link option should be enabled', 'gallery-block')}
                             </p>
                         )}
                     </PanelBody>
 
-                    <PanelBody title={__('EXIF Caption Template', 'category-gallery-block')} initialOpen={false}>
+                    <PanelBody title={__('EXIF Caption Template', 'gallery-block')} initialOpen={false}>
                         <TextControl
-                            label={__('Template', 'category-gallery-block')}
+                            label={__('Template', 'gallery-block')}
                             value={exifTemplate}
                             onChange={(value) => setAttributes({ exifTemplate: value })}
                         />
                         <p style={{ fontSize: '12px', color: '#757575', marginTop: '8px', marginBottom: '4px' }}>
-                            {__('Available placeholders:', 'category-gallery-block')}<br />
+                            {__('Available placeholders:', 'gallery-block')}<br />
                             <code style={{ fontSize: '11px' }}>
                                 {'{FileName}, {Copyright}, {CameraMake}, {CameraModel}, {ISOSpeedRatings}, {FocalLength}, {ShutterSpeedValue}, {FNumber}'}
                             </code>
                         </p>
                         <p style={{ fontSize: '12px', color: '#757575', marginTop: '8px', fontStyle: 'italic' }}>
-                            {__('Conditional text:', 'category-gallery-block')}<br />
-                            {__('Use ', 'category-gallery-block')}
+                            {__('Conditional text:', 'gallery-block')}<br />
+                            {__('Use ', 'gallery-block')}
                             <code style={{ fontSize: '11px' }}>{"{'text', Placeholder}"}</code>
-                            {__(' to show text only if EXIF data exists.', 'category-gallery-block')}<br />
-                            {__('Example: ', 'category-gallery-block')}
+                            {__(' to show text only if EXIF data exists.', 'gallery-block')}<br />
+                            {__('Example: ', 'gallery-block')}
                             <code style={{ fontSize: '11px' }}>{"{'© ', Copyright}"}</code>
-                            {__(' or ', 'category-gallery-block')}
+                            {__(' or ', 'gallery-block')}
                             <code style={{ fontSize: '11px' }}>{"{'| ', FNumber}"}</code>
                         </p>
                     </PanelBody>
@@ -294,20 +294,20 @@ registerBlockType('category-gallery/block', {
                     }}>
                         <div style={{ fontSize: '48px', marginBottom: '10px' }}>📸</div>
                         <h3 style={{ margin: '0 0 10px 0', fontSize: '16px', fontWeight: '600' }}>
-                            {__('Category Gallery', 'category-gallery-block')}
+                            {__('Category Gallery', 'gallery-block')}
                         </h3>
                         <p style={{ margin: '0 0 5px 0', color: '#666', fontSize: '14px' }}>
-                            {__('Source:', 'category-gallery-block')} <strong>{sourceType === 'gallery' ? 'Gallery Taxonomy' : 'Category'}</strong>
+                            {__('Source:', 'gallery-block')} <strong>{sourceType === 'gallery' ? 'Gallery Taxonomy' : 'Category'}</strong>
                         </p>
                         <p style={{ margin: '0 0 5px 0', color: '#666', fontSize: '14px' }}>
-                            {__('Layout:', 'category-gallery-block')} <strong>{layout}</strong>
+                            {__('Layout:', 'gallery-block')} <strong>{layout}</strong>
                         </p>
                         <p style={{ margin: '0', color: (sourceType === 'gallery' && galleries.length === 0) || (sourceType === 'category' && categories.length === 0) ? '#d63638' : '#666', fontSize: '14px' }}>
                             {selectionInfo}
                         </p>
                         {includeUnpublished && (
                             <p style={{ margin: '5px 0 0 0', color: '#2271b1', fontSize: '12px' }}>
-                                ✓ {__('Including unpublished pages', 'category-gallery-block')}
+                                ✓ {__('Including unpublished pages', 'gallery-block')}
                             </p>
                         )}
                     </div>

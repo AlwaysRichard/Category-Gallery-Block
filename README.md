@@ -1,4 +1,4 @@
-# Category Gallery Block
+# Gallery Block
 
 Standalone gallery block that displays images from posts filtered by **Gallery Taxonomy OR Category**. **Auto-detects taxonomy/category archives** so it works perfectly on archive pages.
 
@@ -20,7 +20,7 @@ Standalone gallery block that displays images from posts filtered by **Gallery T
 Add the block to any page and manually select galleries or category.
 
 **Steps:**
-1. Add "Category Gallery" block to any page
+1. Add "Gallery" block to any page
 2. In sidebar → "Source Selection" → Choose "Gallery Taxonomy" or "Category"
 3. Select your gallery/category
 4. Configure layout settings
@@ -60,7 +60,7 @@ Perfect for previewing galleries before publishing!
 2. **Find or Create:** "Taxonomy: Galleries" template
 3. **Edit the template:**
    - Remove default post loop if present
-   - Add **"Category Gallery"** block
+   - Add **"Gallery"** block
    - Configure layout (Tiled, Grid, Masonry, or Collage)
    - Set columns, gutter, link options, etc.
 4. **Save** the template
@@ -70,7 +70,7 @@ Perfect for previewing galleries before publishing!
 2. **Find or Create:** "Category" template
 3. **Edit the template:**
    - Remove default post loop if present
-   - Add **"Category Gallery"** block
+   - Add **"Gallery"** block
    - Configure layout
 4. **Save** the template
 
@@ -100,8 +100,8 @@ get_header();
     </header>
 
     <?php
-    // The Category Gallery block will auto-detect and show this gallery
-    echo do_blocks( '<!-- wp:category-gallery/block {"layout":"tiled","columns":3,"gutter":12,"linkToImage":true} /-->' );
+    // The Gallery block will auto-detect and show this gallery
+    echo do_blocks( '<!-- wp:gallery/block {"layout":"tiled","columns":3,"gutter":12,"linkToImage":true} /-->' );
     ?>
 </main>
 
@@ -133,8 +133,8 @@ get_header();
     </header>
 
     <?php
-    // The Category Gallery block will auto-detect and show this category's featured images
-    echo do_blocks( '<!-- wp:category-gallery/block {"sourceType":"category","layout":"grid","columns":4,"gutter":16,"linkToPost":true} /-->' );
+    // The Gallery block will auto-detect and show this category's featured images
+    echo do_blocks( '<!-- wp:gallery/block {"sourceType":"category","layout":"grid","columns":4,"gutter":16,"linkToPost":true} /-->' );
     ?>
 </main>
 
@@ -213,8 +213,8 @@ Canon EOS R5 | 24mm f/2.8 1/250s ISO-400
 ## Installation
 
 ```bash
-chmod +x /home/alwaysvw.net/downloads/install-category-gallery-block.sh
-bash /home/alwaysvw.net/downloads/install-category-gallery-block.sh
+chmod +x /home/alwaysvw.net/downloads/install-gallery-block.sh
+bash /home/alwaysvw.net/downloads/install-gallery-block.sh
 ```
 
 ## How It Works

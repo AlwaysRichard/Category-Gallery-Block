@@ -1,4 +1,4 @@
-=== Category Gallery Block ===
+=== Gallery Block ===
 Contributors: richardcox
 Tags: gallery, block, category, taxonomy, exif
 Requires at least: 6.0
@@ -12,7 +12,7 @@ Standalone gallery block that displays images from posts filtered by gallery tax
 
 == Description ==
 
-Category Gallery Block is a flexible Gutenberg block designed for photographers and content creators. It allows you to display image galleries dynamically based on post categories or a custom "photo_gallery" taxonomy.
+Gallery Block is a flexible Gutenberg block designed for photographers and content creators. It allows you to display image galleries dynamically based on post categories or a custom "photo_gallery" taxonomy.
 
 Key features include:
 * **Auto-Detection:** Automatically detects if it is being viewed on a category or gallery archive and displays relevant images.
@@ -25,7 +25,7 @@ Key features include:
 
 1. Upload the `category-gallery-block` folder to the `/wp-content/plugins/` directory.
 2. Activate the plugin through the 'Plugins' menu in WordPress.
-3. In the Block Editor, search for "Category Gallery" to add the block to your posts or pages.
+3. In the Block Editor, search for "Gallery" to add the block to your posts or pages.
 
 == Frequently Asked Questions ==
 

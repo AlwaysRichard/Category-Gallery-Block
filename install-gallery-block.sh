@@ -1,16 +1,16 @@
 #!/bin/bash
 
-# Category Gallery Block - Install/Update Script
+# Gallery Block - Install/Update Script
 
 set -e
 
-PLUGIN_DIR="/home/alwaysvw.net/public_html/wp-content/plugins/category-gallery-block"
-ZIP_FILE="/home/alwaysvw.net/downloads/category-gallery-block.zip"
+PLUGIN_DIR="/home/alwaysvw.net/public_html/wp-content/plugins/gallery-block"
+ZIP_FILE="/home/alwaysvw.net/downloads/gallery-block.zip"
 BACKUP_DIR_BASE="/home/alwaysvw.net/downloads"
 OWNER="alway3397:alway3397"
 
 echo "=========================================="
-echo "Category Gallery Block - Install/Update"
+echo "Gallery Block - Install/Update"
 echo "=========================================="
 
 # Check if zip file exists
@@ -24,7 +24,7 @@ cd /home/alwaysvw.net/public_html/wp-content/plugins/
 # Check if plugin already exists
 if [ -d "$PLUGIN_DIR" ]; then
     echo "📦 Plugin directory exists - performing UPDATE"
-    BACKUP_NAME="category-gallery-block_backup_$(date +%Y%m%d_%H%M%S)"
+    BACKUP_NAME="gallery-block_backup_$(date +%Y%m%d_%H%M%S)"
     BACKUP_PATH="${BACKUP_DIR_BASE}/${BACKUP_NAME}"
     sudo cp -r "$PLUGIN_DIR" "$BACKUP_PATH"
     sudo chown -R "$OWNER" "$BACKUP_PATH"
@@ -41,14 +41,14 @@ sudo unzip -q "$ZIP_FILE"
 
 # Set proper ownership
 echo "🔐 Setting ownership to $OWNER..."
-sudo chown -R "$OWNER" category-gallery-block/
+sudo chown -R "$OWNER" gallery-block/
 
 # Set proper permissions
 echo "🔐 Setting permissions..."
-sudo chmod -R 755 category-gallery-block/
+sudo chmod -R 755 gallery-block/
 
 # Navigate into the plugin directory
-cd category-gallery-block/
+cd gallery-block/
 
 # Verify block.json is in src directory
 if [ -f "src/block.json" ]; then
@@ -89,12 +89,12 @@ if [ -n "$BACKUP_PATH" ]; then
     echo "2. Plugin should still be activated"
     echo "3. Hard refresh your browser (Ctrl+Shift+R)"
 else
-    echo "2. Find 'Category Gallery Block'"
+    echo "2. Find 'Gallery Block'"
     echo "3. Click 'Activate'"
 fi
 echo ""
 echo "Usage:"
-echo "- Add 'Category Gallery' block to any page"
+echo "- Add 'Gallery' block to any page"
 echo "- Select source: Gallery Taxonomy or Category"
 echo "- Configure layout, columns, and other settings"
 echo ""

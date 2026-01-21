@@ -1,14 +1,14 @@
 {
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "apiVersion": 3,
-  "name": "category-gallery/block",
+  "name": "gallery/block",
   "version": "1.3.0",
-  "title": "Category Gallery",
+  "title": "Gallery",
   "category": "media",
   "icon": "format-gallery",
   "description": "Display all images from posts in selected gallery taxonomies or categories",
   "keywords": ["gallery", "images", "category", "taxonomy", "photos"],
-  "textdomain": "category-gallery-block",
+  "textdomain": "gallery-block",
   "supports": {
     "html": false,
     "align": ["wide", "full"]

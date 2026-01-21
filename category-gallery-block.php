@@ -1,12 +1,12 @@
 <?php
 /**
- * Plugin Name: Category Gallery Block
+ * Plugin Name: Gallery Block
  * Description: Standalone gallery block that displays images from posts filtered by gallery taxonomy or category. Auto-detects taxonomy/category archives. Uses unique class names to avoid conflicts.
  * Version:     1.3.0
  * Author:      Richard Cox
  * License:     GPL-2.0-or-later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain: category-gallery-block
+ * Text Domain: gallery-block
  * Requires at least: 6.0
  * Requires PHP: 7.4
  */
@@ -62,11 +62,11 @@ class Category_Gallery_Block {
 
         // Validate selection
         if ( $sourceType === 'gallery' && empty( $galleries ) ) {
-            return '<p>' . esc_html__( 'No galleries selected.', 'category-gallery-block' ) . '</p>';
+            return '<p>' . esc_html__( 'No galleries selected.', 'gallery-block' ) . '</p>';
         }
         
         if ( $sourceType === 'category' && empty( $categories ) ) {
-            return '<p>' . esc_html__( 'No category selected.', 'category-gallery-block' ) . '</p>';
+            return '<p>' . esc_html__( 'No category selected.', 'gallery-block' ) . '</p>';
         }
 
         // Get attachments based on source type
@@ -77,7 +77,7 @@ class Category_Gallery_Block {
         }
 
         if ( empty( $attachments ) ) {
-            return '<p>' . esc_html__( 'No images found.', 'category-gallery-block' ) . '</p>';
+            return '<p>' . esc_html__( 'No images found.', 'gallery-block' ) . '</p>';
         }
 
         // Limit if needed
